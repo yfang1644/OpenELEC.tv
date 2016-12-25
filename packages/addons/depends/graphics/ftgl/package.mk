@@ -21,13 +21,14 @@ PKG_VERSION="2.1.2"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Henry Maddocks (ftgl@opengl.geek.nz)"
 PKG_SITE="http://sourceforge.net/projects/ftgl/"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain freetype"
+PKG_DEPENDS_TARGET="freetype"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
-PKG_SHORTDESC="ftgl:"
-PKG_LONGDESC="ftgl:"
+PKG_SHORTDESC="Font in GL"
+PKG_LONGDESC="FTGL is a free open source library to enable developers to use arbitrary fonts in their OpenGL (www.opengl.org) applications."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
@@ -37,9 +38,10 @@ PKG_CONFIGURE_SCRIPT="unix/configure"
 PKG_CONFIGURE_OPTS_TARGET="--with-freetype-prefix=$SYSROOT_PREFIX/usr --with-pic"
 
 pre_configure_target() {
-# ftgl fails to build in subdirs
-  cd $ROOT/$PKG_BUILD/unix
-    rm -rf ../$TARGET_NAME
-
-  CXXFLAGS=-fpermissive
+  sed -i 's/configure/configure --host=arm-linux/' ../CMakeLists.txt
+}
+configure_target() {
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+        -DOUTPUT_DIR=$SYSROOT_PREFIX/usr \
+        ..
 }

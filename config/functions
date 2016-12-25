@@ -186,41 +186,41 @@ add_group() {
 do_autoreconf() {
   export ACLOCAL_DIR=$SYSROOT_PREFIX/usr/share/aclocal
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/autoconf" ]; then
-    export AUTOCONF=$ROOT/$TOOLCHAIN/bin/autoconf
+  if [ -e "/usr/bin/autoconf" ]; then
+    export AUTOCONF=/usr/bin/autoconf
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/automake" ]; then
-    export AUTOMAKE=$ROOT/$TOOLCHAIN/bin/automake
+  if [ -e "/usr/bin/automake" ]; then
+    export AUTOMAKE=/usr/bin/automake
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/autopoint" ]; then
-    export AUTOPOINT=$ROOT/$TOOLCHAIN/bin/autopoint
+  if [ -e "/usr/bin/autopoint" ]; then
+    export AUTOPOINT=/usr/bin/autopoint
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/libtoolize" ]; then
-    export LIBTOOLIZE=$ROOT/$TOOLCHAIN/bin/libtoolize
+  if [ -e "/usr/bin/libtoolize" ]; then
+    export LIBTOOLIZE=/usr/bin/libtoolize
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/intltoolize" ]; then
-    export INTLTOOLIZE=$ROOT/$TOOLCHAIN/bin/intltoolize
+  if [ -e "/usr/bin/intltoolize" ]; then
+    export INTLTOOLIZE=/usr/bin/intltoolize
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/aclocal" ]; then
-    export ACLOCAL="$ROOT/$TOOLCHAIN/bin/aclocal -I $ACLOCAL_DIR"
+  if [ -e "/usr/bin/aclocal" ]; then
+    export ACLOCAL="/usr/bin/aclocal -I $ACLOCAL_DIR"
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/autoheader" ]; then
-    export AUTOHEADER=$ROOT/$TOOLCHAIN/bin/autoheader
+  if [ -e "/usr/bin/autoheader" ]; then
+    export AUTOHEADER=/usr/bin/autoheader
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/libtool" ]; then
-    export LIBTOOL=$ROOT/$TOOLCHAIN/bin/libtool
+  if [ -e "/usr/bin/libtool" ]; then
+    export LIBTOOL=/usr/bin/libtool
   fi
 
-  if [ -e "$ROOT/$TOOLCHAIN/bin/autoreconf" -a -e "$INTLTOOLIZE" ]; then
+  if [ -e "/usr/bin/autoreconf" -a -e "$INTLTOOLIZE" ]; then
     mkdir -p $ACLOCAL_DIR
-    export AUTORECONF="$ROOT/$TOOLCHAIN/bin/autoreconf --verbose --force --install -I $ACLOCAL_DIR"
+    export AUTORECONF="/usr/bin/autoreconf --verbose --force --install -I $ACLOCAL_DIR"
     $AUTORECONF $@
   fi
 }

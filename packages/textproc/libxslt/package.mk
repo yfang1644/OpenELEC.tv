@@ -21,24 +21,24 @@ PKG_VERSION="1.1.29"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="MIT"
+PKG_MAINTAINER="Daniel Veillard<daniel@veillard.com>"
 PKG_SITE="http://xmlsoft.org/xslt/"
 PKG_URL="ftp://xmlsoft.org/libxml2/$PKG_NAME-$PKG_VERSION.tar.gz"
 PKG_DEPENDS_HOST="toolchain libxml2:host"
-PKG_DEPENDS_TARGET="toolchain libxml2"
+PKG_DEPENDS_TARGET="libxml2"
 PKG_PRIORITY="optional"
 PKG_SECTION="textproc"
-PKG_SHORTDESC="libxslt"
-PKG_LONGDESC="libxslt"
+PKG_SHORTDESC="Libxslt is the XSLT C library developed for the GNOME project."
+PKG_LONGDESC="XSLT is designed for use as part of XSL, which is a stylesheet language for XML. "
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_HOST="  ac_cv_header_ansidecl_h=no \
-                           --enable-static \
-                           --disable-shared \
-                           --without-python \
-                           --with-libxml-prefix=$ROOT/$TOOLCHAIN \
-                           --without-crypto"
+PKG_CONFIGURE_OPTS_ALL="ac_cv_header_ansidecl_h=no \
+                        --without-python \
+                        --without-crypto"
+PKG_CONFIGURE_OPTS_HOST="$PKG_CONFIGURE_OPTS_ALL \
+                           --with-libxml-prefix=$ROOT/$TOOLCHAIN"
 
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_header_ansidecl_h=no \
                            --enable-static \

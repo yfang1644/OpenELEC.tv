@@ -21,19 +21,22 @@ PKG_VERSION="0.9.10"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Alan Coopersmith <alan.coopersmith@oracle.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/lib/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros renderproto libX11"
+PKG_DEPENDS_TARGET="renderproto libX11"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/lib"
-PKG_SHORTDESC="libxrender: X Rendering Extension client library"
+PKG_SHORTDESC="X Rendering Extension client library"
 PKG_LONGDESC="The X Rendering Extension (Render) introduces digital image composition as the foundation of a new rendering model within the X Window System. Rendering geometric figures is accomplished by client-side tesselation into either triangles or trapezoids."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared --enable-malloc0returnsnull"
+CFLAGS="$CFLAGS -fPIC"
 
-pre_configure_target() {
-  export CFLAGS="$CFLAGS -fPIC"
+PKG_CONFIGURE_OPTS_TARGET="--enable-malloc0returnsnull"
+
+post_makeinstall_target() {
+  PKG_DEPENDS_TARGET="libX11"
 }

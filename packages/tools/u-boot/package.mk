@@ -32,7 +32,7 @@ fi
 PKG_REV="1"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="GPL"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="tools"
 PKG_SHORTDESC="u-boot: Universal Bootloader project"

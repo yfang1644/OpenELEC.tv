@@ -21,16 +21,29 @@ PKG_VERSION="5.43"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER=""
 PKG_SITE="http://www.bluez.org/"
 PKG_URL="http://www.kernel.org/pub/linux/bluetooth/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain dbus glib readline netbsd-curses systemd"
+PKG_DEPENDS_TARGET="dbus glib readline netbsd-curses systemd"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
 PKG_SHORTDESC="bluez: Bluetooth Tools and System Daemons for Linux."
 PKG_LONGDESC="Bluetooth Tools and System Daemons for Linux."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"   # missing -lncurses when set to "no"
+
+if [ "$DEBUG" = "yes" ]; then
+  BLUEZ_CONFIG="--enable-debug"
+else
+  BLUEZ_CONFIG="--disable-debug"
+fi
+
+if [ "$DEVTOOLS" = "yes" ]; then
+  BLUEZ_CONFIG="$BLUEZ_CONFIG --enable-monitor --enable-test"
+else
+  BLUEZ_CONFIG="$BLUEZ_CONFIG --disable-monitor --disable-test"
+fi
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-dependency-tracking \
                            --disable-silent-rules \

@@ -22,20 +22,19 @@ PKG_VERSION="3.9.7"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Bob Friesenhahn <bfriesen@simple.dallas.tx.us>"
 PKG_SITE="http://www.remotesensing.org/libtiff/"
 PKG_URL="http://download.osgeo.org/libtiff/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libjpeg-turbo zlib"
+PKG_DEPENDS_TARGET="libjpeg-turbo zlib"
 PKG_PRIORITY="optional"
 PKG_SECTION="graphics"
-PKG_SHORTDESC="libtiff: A library for reading and writing TIFF files"
-PKG_LONGDESC="libtiff is a library for reading and writing data files encoded with the Tag Image File format, Revision 6.0 (or revision 5.0 or revision 4.0). This file format is suit- able for archiving multi-color and monochromatic image data."
+PKG_SHORTDESC="Library for reading and writing TIFF files"
+PKG_LONGDESC="libtiff is a library for reading and writing data files encoded with the Tag Image File format, Revision 6.0 (or revision 5.0 or revision 4.0). This file format is suitable for archiving multi-color and monochromatic image data."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static \
-                           --disable-shared \
-                           --disable-mdi \
+PKG_CONFIGURE_OPTS_TARGET="--disable-mdi \
                            --enable-cxx \
                            --with-gl=no \
                            --with-jpeg-lib-dir=$SYSROOT_PREFIX/usr/lib \

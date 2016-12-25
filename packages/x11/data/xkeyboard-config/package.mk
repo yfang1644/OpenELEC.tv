@@ -21,22 +21,22 @@ PKG_VERSION="2.19"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Sergey Udaltsov <svu@users.sourceforge.net>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://www.x.org/releases/individual/data/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros xkbcomp"
+PKG_DEPENDS_TARGET="xkbcomp"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/data"
-PKG_SHORTDESC="xkeyboard-config: X keyboard extension data files"
+PKG_SHORTDESC="X keyboard extension data files"
 PKG_LONGDESC="X keyboard extension data files."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="XKBCOMP=/usr/bin/xkbcomp \
                            --without-xsltproc \
                            --enable-compat-rules \
                            --enable-runtime-deps \
-                           --enable-nls \
                            --disable-rpath \
                            --with-xkb-base=/usr/share/X11/xkb \
                            --with-xkb-rules-symlink=xorg \

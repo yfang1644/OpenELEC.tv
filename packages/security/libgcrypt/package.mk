@@ -21,29 +21,23 @@ PKG_VERSION="1.7.3"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
+PKG_MAINTAINER="Werner Koch <wk@gnupg.org>"
 PKG_SITE="https://www.gnupg.org/"
 PKG_URL="https://www.gnupg.org/ftp/gcrypt/libgcrypt/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libgpg-error"
+PKG_DEPENDS_TARGET="libgpg-error"
 PKG_PRIORITY="optional"
 PKG_SECTION="security"
-PKG_SHORTDESC="libgcrypt: General purpose cryptographic library"
+PKG_SHORTDESC="General purpose cryptographic library"
 PKG_LONGDESC="Libgcrypt is a general purpose cryptographic library based on the code from GnuPG. It provides functions for all cryptographic building blocks: symmetric ciphers, hash algorithms, MACs, public key algorithms, large integer functions, random numbers and a lot of supporting functions."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="CC_FOR_BUILD=$HOST_CC \
-                           ac_cv_sys_symbol_underscore=no \
-                           --enable-asm \
-                           --with-gnu-ld \
-                           --with-libgpg-error-prefix=$SYSROOT_PREFIX/usr \
-                           --disable-doc"
-
-pre_configure_target() {
-  # libgcrypt-1.7.x fails to build with LTO support
-  # see for example https://bugs.gentoo.org/show_bug.cgi?id=581114
-    strip_lto
-}
+PKG_CONFIGURE_OPTS_TARGET="ac_cv_sys_symbol_underscore=no \
+                          --enable-asm \
+                          CC_FOR_BUILD=$HOST_CC \
+			  --with-libgpg-error-prefix=$SYSROOT_PREFIX/usr \
+                          --with-gpg-error-prefix=$SYSROOT_PREFIX/usr"
 
 post_makeinstall_target() {
   sed -e "s:\(['= ]\)\"/usr:\\1\"$SYSROOT_PREFIX/usr:g" -i src/$PKG_NAME-config

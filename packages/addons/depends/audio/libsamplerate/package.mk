@@ -21,9 +21,10 @@ PKG_VERSION="0.1.8"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKF_MAINTAINER="rik de Castro Lopo <erikd@mega-nerd.com>"
 PKG_SITE="http://www.mega-nerd.com/SRC/"
 PKG_URL="http://www.mega-nerd.com/SRC/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="audio"
 PKG_SHORTDESC="libsamplerate: A Sample Rate Converter library for audio"
@@ -33,9 +34,7 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no" # ToDo
 
 # package specific configure options
-PKG_CONFIGURE_OPTS_TARGET="--disable-shared \
-                           --enable-static \
-                           --datadir=/usr/share \
+PKG_CONFIGURE_OPTS_TARGET="--datadir=/usr/share \
                            --disable-fftw \
                            --disable-sndfile"
 

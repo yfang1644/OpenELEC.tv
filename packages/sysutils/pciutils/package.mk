@@ -23,7 +23,7 @@ PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"
 PKG_SITE="http://mj.ucw.cz/pciutils.shtml"
 PKG_URL="http://www.kernel.org/pub/software/utils/pciutils/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain kmod systemd"
+PKG_DEPENDS_TARGET="systemd"
 PKG_PRIORITY="optional"
 PKG_SECTION="system"
 PKG_SHORTDESC="pciutils: Linux PCI Utilities"
@@ -36,7 +36,7 @@ PKG_MAKE_OPTS="PREFIX=/usr SHARED=no STRIP= IDSDIR=/usr/share"
 
 make_target() {
   make OPT="$CFLAGS" \
-       CROSS_COMPILE=${TARGET_NAME}- \
+       CROSS_COMPILE=${TARGET_PREFIX} \
        HOST=$TARGET_ARCH-linux \
        $PKG_MAKE_OPTS \
        ZLIB=no DNS=no LIBKMOD=yes HWDB=yes

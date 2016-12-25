@@ -23,7 +23,7 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://code.google.com/p/boblight"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain libusb"
+PKG_DEPENDS_TARGET="libusb"
 PKG_PRIORITY="optional"
 PKG_SECTION="service/multimedia"
 PKG_SHORTDESC="boblightd: an ambilight controller."
@@ -40,8 +40,8 @@ if [ "$DISPLAYSERVER" = "x11" ] ; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libX11 libXext libXrender"
 fi
 
-if [ "$OPENGL" = "mesa" ] ; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET opengl glu"
+if [ ! "$OPENGL" = "no" ] ; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OPENGL mesa glu"
 else
   EXTRAOPTS="--without-opengl"
 fi

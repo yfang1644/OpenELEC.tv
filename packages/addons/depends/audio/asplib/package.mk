@@ -24,7 +24,7 @@ PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/AchimTuran/asplib"
 PKG_GIT_URL="https://github.com/AchimTuran/asplib.git"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="audio"
 PKG_SHORTDESC="asplib: Achim's Signal Processing LIBrary"
@@ -33,4 +33,9 @@ PKG_LONGDESC="asplib is a small and lightweight C++ library for digital signal p
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-CXXFLAGS="$CXXFLAGS -DTARGET_LINUX"
+configure_target() {
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+    -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=0 \
+    -DCMAKE_CXX_FLAGS="$CXXFLAGS -DTARGET_LINUX" \
+    ..
+}

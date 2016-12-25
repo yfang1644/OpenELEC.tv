@@ -21,20 +21,20 @@ PKG_VERSION="1.0.27"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL"
+PKG_MAINTAINER="Erik de Castro Lopo (erikd AT mega-nerd DOT com)"
 PKG_SITE="http://www.mega-nerd.com/libsndfile/"
 PKG_URL="http://www.mega-nerd.com/$PKG_NAME/files/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain alsa-lib"
+PKG_DEPENDS_TARGET="alsa-lib"
 PKG_PRIORITY="optional"
 PKG_SECTION="audio"
-PKG_SHORTDESC="libsndfile: A library for accessing various audio file formats"
+PKG_SHORTDESC="A library for accessing various audio file formats"
 PKG_LONGDESC="libsndfile is a C library for reading and writing sound files such as AIFF, AU, WAV, and others through one standard interface. It can currently read/write 8, 16, 24 and 32-bit PCM files as well as 32 and 64-bit floating point WAV files and a number of compressed formats. It compiles and runs on *nix, MacOS, and Win32."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 # package specific configure options
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared \
-                           --disable-silent-rules \
+PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
                            --disable-sqlite \
                            --enable-alsa \
                            --disable-external-libs \
@@ -42,6 +42,9 @@ PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared \
                            --disable-test-coverage \
                            --enable-largefile \
                            --with-gnu-ld"
+if [ $TARGET_ARCH = "aarch64" ]; then
+   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --host=arm-linux"
+fi
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/bin

@@ -25,7 +25,7 @@ PKG_SITE="http://www.videolan.org/developers/libdvbcsa.html"
 PKG_SITE="https://github.com/glenvt18/libdvbcsa/"
 PKG_GIT_URL="https://github.com/glenvt18/libdvbcsa.git"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="lib"
 PKG_SHORTDESC="libdvbcsa is a free implementation of the DVB Common Scrambling Algorithm - DVB/CSA - with encryption and decryption capabilities"
@@ -34,7 +34,7 @@ PKG_LONGDESC="libdvbcsa is a free implementation of the DVB Common Scrambling Al
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-shared --enable-static --with-sysroot=$SYSROOT_PREFIX"
+PKG_CONFIGURE_OPTS_TARGET="--with-sysroot=$SYSROOT_PREFIX"
 
 if echo "$TARGET_FPU" | grep -q '^neon'; then
   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-neon"

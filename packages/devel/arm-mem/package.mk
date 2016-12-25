@@ -24,7 +24,7 @@ PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/bavison/arm-mem"
 PKG_GIT_URL="https://github.com/bavison/arm-mem.git"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_DEPENDS_INIT="toolchain arm-mem"
 PKG_PRIORITY="optional"
 PKG_SECTION="devel"
@@ -37,7 +37,7 @@ PKG_AUTORECONF="no"
 PKG_MAKE_OPTS_TARGET="libarmmem.so"
 
 pre_make_target() {
-  export CROSS_COMPILE=${TARGET_NAME}-
+  export CROSS_COMPILE=$TARGET_NAME-
   export CFLAGS="$CFLAGS -fPIC"
 }
 

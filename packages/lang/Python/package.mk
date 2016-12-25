@@ -21,10 +21,11 @@ PKG_VERSION="2.7.12"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Guido van Rossum (home page: http://www.python.org/~guido/)"
 PKG_SITE="http://www.python.org/"
 PKG_URL="http://www.python.org/ftp/python/$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_HOST="zlib:host"
-PKG_DEPENDS_TARGET="toolchain sqlite expat zlib bzip2 libressl libffi Python:host"
+PKG_DEPENDS_HOST=""
+PKG_DEPENDS_TARGET="sqlite expat zlib bzip2 libressl libffi tk Python:host"
 PKG_PRIORITY="optional"
 PKG_SECTION="lang"
 PKG_SHORTDESC="python: The Python programming language"
@@ -33,7 +34,7 @@ PKG_LONGDESC="Python is an interpreted object-oriented programming language, and
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="yes"
 
-PY_DISABLED_MODULES="readline _curses _curses_panel _tkinter nis gdbm bsddb ossaudiodev"
+PY_DISABLED_MODULES="_curses _curses_panel nis gdbm bsddb ossaudiodev"
 
 PKG_CONFIGURE_OPTS_HOST="--cache-file=config.cache \
                          --without-cxx-main \
@@ -93,20 +94,24 @@ pre_configure_target() {
 }
 
 make_target() {
-  make  -j1 CC="$CC" LDFLAGS="$TARGET_LDFLAGS -L." \
+  make  -j4 CC="$TARGET_CC" LDFLAGS="$TARGET_LDFLAGS -L." \
+        TCLTK_INCLUDES="-I$SYSROOT_PREFIX/usr/Include" \
+        TCLTK_LIBS="-ltcl8.6 -ltk8.6" \
         PYTHON_DISABLE_MODULES="$PY_DISABLED_MODULES" \
         PYTHON_MODULES_INCLUDE="$TARGET_INCDIR" \
         PYTHON_MODULES_LIB="$TARGET_LIBDIR"
 }
 
 makeinstall_target() {
-  make  -j1 CC="$CC" DESTDIR=$SYSROOT_PREFIX \
+  make  -j4 CC="$TARGET_CC" \
+        DESTDIR=$SYSROOT_PREFIX \
         PYTHON_DISABLE_MODULES="$PY_DISABLED_MODULES" \
         PYTHON_MODULES_INCLUDE="$TARGET_INCDIR" \
         PYTHON_MODULES_LIB="$TARGET_LIBDIR" \
         install
 
-  make  -j1 CC="$CC" DESTDIR=$INSTALL \
+  make  -j4 CC="$TARGET_CC" \
+        DESTDIR=$INSTALL \
         PYTHON_DISABLE_MODULES="$PY_DISABLED_MODULES" \
         PYTHON_MODULES_INCLUDE="$TARGET_INCDIR" \
         PYTHON_MODULES_LIB="$TARGET_LIBDIR" \
@@ -114,7 +119,7 @@ makeinstall_target() {
 }
 
 post_makeinstall_target() {
-  EXCLUDE_DIRS="bsddb curses idlelib lib-tk lib2to3 msilib pydoc_data test unittest"
+  EXCLUDE_DIRS="bsddb curses idlelib lib2to3 msilib pydoc_data test unittest"
   for dir in $EXCLUDE_DIRS; do
     rm -rf $INSTALL/usr/lib/python*/$dir
   done

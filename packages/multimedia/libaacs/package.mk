@@ -21,17 +21,18 @@ PKG_VERSION="9da2b68"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Obliter0n, npzacs"
 PKG_SITE="http://www.videolan.org/developers/libaacs.html"
 PKG_URL="ftp://ftp.videolan.org/pub/videolan/libaacs/$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.bz2"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libgcrypt"
+PKG_DEPENDS_TARGET="libgcrypt"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
-PKG_SHORTDESC="libaacs: a research project to implement the Advanced Access Content System specification."
+PKG_SHORTDESC="A research project to implement the Advanced Access Content System specification."
 PKG_LONGDESC="libaacs is a research project to implement the Advanced Access Content System specification. This research project provides, through an open-source library, a way to understand how the AACS works. This research project is mainly developed by an international team of developers from Doom9."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-werror \
                            --disable-extra-warnings \
@@ -39,6 +40,13 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-werror \
                            --with-libgcrypt-prefix=$SYSROOT_PREFIX/usr \
                            --with-libgpg-error-prefix=$SYSROOT_PREFIX/usr \
                            --with-gnu-ld"
+
+pre_configure_target() {
+  cd $ROOT/$PKG_BUILD
+  ./bootstrap
+  mkdir .$TARGET_NAME
+  cd .$TARGET_NAME
+}
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/usr/config/aacs

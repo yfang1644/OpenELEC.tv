@@ -21,10 +21,11 @@ PKG_VERSION="20150826"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL"
+PKG_MAINTAINER=""
 PKG_SITE="http://www.silicondust.com/products/hdhomerun/dvbt/"
 PKG_URL="http://download.silicondust.com/hdhomerun/${PKG_NAME}_${PKG_VERSION}.tgz"
 PKG_SOURCE_DIR="$PKG_NAME"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="driver"
 PKG_SHORTDESC="The library provides functionality to setup the HDHomeRun, change channels, setup PID filtering, get signal quality and so on."
@@ -33,7 +34,7 @@ PKG_LONGDESC="The library provides functionality to setup the HDHomeRun, change 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_MAKE_OPTS_TARGET="CROSS_COMPILE=${TARGET_NAME}-"
+PKG_MAKE_OPTS_TARGET="CROSS_COMPILE=$TARGET_PREFIX"
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/bin

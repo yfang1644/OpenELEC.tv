@@ -21,16 +21,26 @@ PKG_VERSION="2.0.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Pete Sperl, Carmelo Piccione"
 PKG_SITE="http://projectm.sourceforge.net/"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain ftgl freetype opengl glew"
+PKG_DEPENDS_TARGET="ftgl freetype opengl glew"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
 PKG_SHORTDESC="libprojectM:"
-PKG_LONGDESC="libprojectM:"
+PKG_LONGDESC="projectM is an awesome music visualizer."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CMAKE_OPTS_TARGET="-DCMAKE_PREFIX_PATH=$SYSROOT_PREFIX/usr \
-                       -DBUILD_PROJECTM_STATIC=1"
+pre_configure_target() {
+  sed -i '58c#define projectM_isnan  std::isnan' ../Common.hpp
+}
+
+configure_target() {
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_PREFIX_PATH=$SYSROOT_PREFIX/usr \
+        -DBUILD_PROJECTM_STATIC=1 \
+        ..
+}

@@ -24,7 +24,7 @@ PKG_LICENSE="GPL"
 PKG_SITE="http://www.kodi.tv"
 PKG_GIT_URL="https://github.com/xbmc/kodi-platform"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain tinyxml kodi p8-platform"
+PKG_DEPENDS_TARGET="tinyxml kodi p8-platform"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
 PKG_SHORTDESC="kodi-platform:"
@@ -33,9 +33,18 @@ PKG_LONGDESC="kodi-platform:"
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CMAKE_OPTS_TARGET="-DCMAKE_MODULE_PATH=$SYSROOT_PREFIX/usr/share/kodi \
-                       -DBUILD_SHARED_LIBS=0"
+configure_target() {
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+	    -DCMAKE_FIND_ROOT_PATH=$SYSROOT_PREFIX \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_PREFIX_TOOLCHAIN=$SYSROOT_PREFIX/usr \
+        -DCMAKE_MODULE_PATH=$SYSROOT_PREFIX/usr/lib/kodi \
+        -DCMAKE_PREFIX_PATH=$SYSROOT_PREFIX/usr \
+        -DBUILD_SHARED_LIBS=0 \
+        ..
+}
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/lib/kodiplatform
+  export PKG_VERSION="1.17"
 }

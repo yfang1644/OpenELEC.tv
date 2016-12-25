@@ -21,31 +21,34 @@ PKG_VERSION="0.9.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Christoph Bartelmus <lirc@bartelmus.de>"
 PKG_SITE="http://www.lirc.org"
 PKG_URL="$SOURCEFORGE_SRC/lirc/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libftdi1 libusb-compat libirman"
+PKG_DEPENDS_TARGET="libftdi1 libusb libusb-compat libirman"
 PKG_PRIORITY="optional"
 PKG_SECTION="sysutils/remote"
 PKG_SHORTDESC="lirc: Linux Infrared Remote Control"
 PKG_LONGDESC="LIRC is a package that allows you to decode and send infra-red signals of many (but not all) commonly used remote controls."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_LIBUSB_CONFIG= /
                            ac_cv_func_forkpty=no \
                            ac_cv_lib_util_forkpty=no \
                            --localstatedir=/ \
                            --enable-sandboxed \
-                           --with-gnu-ld \
                            --without-x \
                            --with-driver=userspace \
                            --with-syslog=LOG_DAEMON"
 
 if [ "$DEBUG" = yes ]; then
-  PKG_CONFIGURE_OPTS_TARGET+=" --enable-debug"
+  PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-debug"
 else
-  PKG_CONFIGURE_OPTS_TARGET+=" --disable-debug"
+  PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --disable-debug"
+fi
+if [ $TARGET_ARCH = "aarch64" ]; then
+   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --host=arm-linux"
 fi
 
 pre_configure_target() {

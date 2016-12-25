@@ -21,16 +21,17 @@ PKG_VERSION="1.1.2"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Gaetan Nadon <memsize@videotron.ca>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/font/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros font-util font-cursor-misc"
+PKG_DEPENDS_TARGET="font-util"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/font"
-PKG_SHORTDESC="font-misc-misc: A misc. public domain font"
+PKG_SHORTDESC="A misc. public domain font"
 PKG_LONGDESC="A misc. public domain font."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--with-fontrootdir=/usr/share/fonts \
                            --disable-silent-rules \

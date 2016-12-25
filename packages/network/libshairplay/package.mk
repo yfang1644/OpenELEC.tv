@@ -21,19 +21,29 @@ PKG_VERSION="ce80e00"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Juho Vähä-Herttua"
 PKG_SITE="https://github.com/juhovh/shairplay"
 PKG_GIT_URL="https://github.com/juhovh/shairplay.git"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
 PKG_SHORTDESC="libshairplay: emulates AirPort Express"
 PKG_LONGDESC="libshairPlay emulates an AirPort Express for the purpose of streaming music from iTunes and compatible iPods."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
+
+pre_configure_target() {
+  cd $ROOT/$PKG_BUILD
+  sh ./autogen.sh
+  mkdir -p .$TARGET_NAME
+  cd .$TARGET_NAME
+}
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/etc/shairplay
     cp -P ../airport.key $INSTALL/etc/shairplay
+
+  PKG_VERSION="2013"
 }

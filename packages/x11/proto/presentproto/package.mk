@@ -21,16 +21,21 @@ PKG_VERSION="1.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Keith Packard <keithp@keithp.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/proto/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/proto"
-PKG_SHORTDESC="presentproto: Present extension headers"
+PKG_SHORTDESC="Present extension headers"
 PKG_LONGDESC="The Present extension provides a way for applications to update their window contents from a pixmap in a well defined fashion, synchronizing with the display refresh and potentially using a more efficient mechanism than copying the contents of the source pixmap."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 # package specific configure options
-PKG_CONFIGURE_OPTS_TARGET="--without-xmlto"
+PKG_CONFIGURE_OPTS_TARGET="--host=arm-linux"
+
+make_package_target() {
+  :
+}

@@ -21,19 +21,22 @@ PKG_VERSION="1.1.4"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Keith Packard @HP, Eric Anholt @Intel"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/lib/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros damageproto fixesproto libX11 libXfixes"
+PKG_DEPENDS_TARGET="damageproto libXfixes"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/lib"
-PKG_SHORTDESC="libXdamage: X11 damaged region extension library"
+PKG_SHORTDESC="X11 damaged region extension library"
 PKG_LONGDESC="LibXdamage provides an X Window System client interface to the DAMAGE extension to the X protocol. The Damage extension provides for notification of when on-screen regions have been 'damaged' (altered)."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared"
+CFLAGS="$CFLAGS -fPIC"
 
-pre_configure_target() {
-  export CFLAGS="$CFLAGS -fPIC"
+PKG_CONFIGURE_OPTS_TARGET=""
+
+post_makeinstall_target() {
+  PKG_DEPENDS_TARGET="libXfixes"
 }

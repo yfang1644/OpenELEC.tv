@@ -23,14 +23,18 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.linux-usb.org/"
 PKG_URL="http://kernel.org/pub/linux/utils/usb/usbutils/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain libusb systemd"
+PKG_DEPENDS_TARGET="libusb systemd libiconv"
 PKG_PRIORITY="optional"
 PKG_SECTION="system"
 PKG_SHORTDESC="usbutils: Linux USB Utilities"
 PKG_LONGDESC="This package contains various utilities for inspecting and setting of devices connected to the USB bus. Requires a kernel version including usbdevfs support - and this usbdevfs mounted to /proc/bus/usb."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
+
+PKG_CONFIGURE_OPTS_TARGET="--with-sysroot=$SYSROOT_PREFIX/usr \
+                           LIBS="-liconv""
+
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/bin/lsusb.py

@@ -21,16 +21,17 @@ PKG_VERSION="232"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Chris Kühl <chris@kinvolk.io>"
 PKG_SITE="http://www.freedesktop.org/wiki/Software/systemd"
 PKG_URL="https://github.com/systemd/systemd/archive/v$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libcap kmod util-linux entropy"
+PKG_DEPENDS_TARGET="util-linux entropy libcap"
 PKG_PRIORITY="required"
 PKG_SECTION="system"
-PKG_SHORTDESC="systemd: a system and session manager"
+PKG_SHORTDESC="system and session manager"
 PKG_LONGDESC="systemd is a system and session manager for Linux, compatible with SysV and LSB init scripts. systemd provides aggressive parallelization capabilities, uses socket and D-Bus activation for starting services, offers on-demand starting of daemons, keeps track of processes using Linux cgroups, supports snapshotting and restoring of the system state, maintains mount and automount points and implements an elaborate transactional dependency-based service control logic. It can work as a drop-in replacement for sysvinit."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
                            ac_cv_have_decl_IFLA_BOND_AD_INFO=no \
@@ -41,10 +42,11 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
                            --disable-nls \
                            --disable-dbus \
                            --disable-utmp \
+                           --disable-compat-libs \
                            --disable-coverage \
-                           --enable-kmod \
+                           --disable-kmod \
                            --disable-xkbcommon \
-                           --enable-blkid \
+                           --disable-blkid \
                            --disable-seccomp \
                            --disable-ima \
                            --disable-selinux \
@@ -70,6 +72,7 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
                            --disable-libiptc \
                            --disable-binfmt \
                            --disable-vconsole \
+                           --disable-bootchart \
                            --disable-quotacheck \
                            --enable-tmpfiles \
                            --disable-sysusers \
@@ -77,7 +80,7 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
                            --disable-randomseed \
                            --disable-backlight \
                            --disable-rfkill \
-                           --enable-logind --without-kill-user-processes \
+                           --enable-logind \
                            --disable-machined \
                            --disable-importd \
                            --disable-hostnamed \
@@ -86,10 +89,11 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
                            --disable-localed \
                            --disable-coredump \
                            --disable-polkit \
-                           --disable-resolved --with-default-dnssec=allow-downgrade \
+                           --disable-resolved \
                            --disable-networkd \
                            --disable-efi \
                            --disable-gnuefi \
+                           --disable-kdbus \
                            --disable-myhostname \
                            --enable-hwdb \
                            --disable-manpages \
@@ -105,11 +109,12 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
                            --with-dbuspolicydir=/etc/dbus-1/system.d \
                            --with-dbussessionservicedir=/usr/share/dbus-1/services \
                            --with-dbussystemservicedir=/usr/share/dbus-1/system-services \
+                           --with-dbusinterfacedir=/usr/share/dbus-1/interfaces \
                            --with-rootprefix=/usr \
-                           --with-rootlibdir=/usr/lib"
+                           --with-rootlibdir=/lib"
 
 unpack() {
-  tar xf $ROOT/$SOURCES/systemd/v$PKG_VERSION.tar.gz -C $ROOT/$BUILD
+  tar xf $ROOT/$SOURCES/$PKG_NAME/v$PKG_VERSION.tar.gz -C $ROOT/$BUILD
 }
 
 pre_build_target() {

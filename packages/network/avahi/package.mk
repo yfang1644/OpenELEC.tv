@@ -21,26 +21,24 @@ PKG_VERSION="0.6.32"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Lennart Poettering, Trent Lloyd"
 PKG_SITE="http://avahi.org/"
 PKG_URL="http://sources.openelec.tv/mirror/avahi/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain expat libdaemon dbus connman"
+PKG_DEPENDS_TARGET="libdaemon dbus glib"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
-PKG_SHORTDESC="avahi: A Zeroconf mDNS/DNS-SD responder"
+PKG_SHORTDESC="A Zeroconf mDNS/DNS-SD responder"
 PKG_LONGDESC="Avahi is a framework for Multicast DNS Service Discovery (mDNS/DNS-SD a.k.a. Zeroconf) on Linux. It allows programs to publish and discover services running on a local network with no specific configuration. For example, you can plug into a network and instantly find printers to print to, files to look at, and people to talk to."
 
 PKG_IS_ADDON="no"
-#broken
 PKG_AUTORECONF="no"
-
-MAKEFLAGS="-j1"
 
 PKG_CONFIGURE_OPTS_TARGET="py_cv_mod_gtk_=yes \
                            py_cv_mod_dbus_=yes \
                            ac_cv_func_chroot=no \
                            --with-distro=none \
-                           --disable-glib \
-                           --disable-gobject \
+                           --enable-glib \
+                           --enable-gobject \
                            --disable-qt3 \
                            --disable-qt4 \
                            --disable-gtk \
@@ -73,8 +71,7 @@ PKG_CONFIGURE_OPTS_TARGET="py_cv_mod_gtk_=yes \
                            --disable-compat-howl \
                            --with-xml=expat \
                            --with-avahi-user=avahi \
-                           --with-avahi-group=avahi \
-                           --disable-nls"
+                           --with-avahi-group=avahi"
 
 pre_configure_target() {
   NOCONFIGURE=1 ./autogen.sh

@@ -21,9 +21,10 @@ PKG_VERSION="3.2.2"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPLv2.1+"
+PKG_MAINTAINER="Michael Niedermayer, et al"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://ffmpeg.org/releases/${PKG_NAME}-${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain yasm:host zlib bzip2 libressl speex"
+PKG_DEPENDS_TARGET="zlib bzip2 libvorbis libressl x264 yasm"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
 PKG_SHORTDESC="FFmpeg is a complete, cross-platform solution to record, convert and stream audio and video."
@@ -65,6 +66,9 @@ case "$TARGET_ARCH" in
   ;;
   *)
       FFMPEG_TABLES="--disable-hardcoded-tables"
+  ;;
+  aarch64)
+      FFMPEG_TABLES="--enable-hardcoded-tables"
   ;;
 esac
 
@@ -110,6 +114,8 @@ configure_target() {
               --ar="$AR" \
               --as="$CC" \
               --cc="$CC" \
+              --cxx="$CXX" \
+              --ranlib="$RANLIB" \
               --ld="$CC" \
               --host-cc="$HOST_CC" \
               --host-cflags="$HOST_CFLAGS" \
@@ -118,7 +124,6 @@ configure_target() {
               --extra-cflags="$CFLAGS" \
               --extra-ldflags="$LDFLAGS -fPIC" \
               --extra-libs="$FFMPEG_LIBS" \
-              --extra-version="" \
               --build-suffix="" \
               --disable-static \
               --enable-shared \
@@ -147,7 +152,8 @@ configure_target() {
               --disable-w32threads \
               --disable-x11grab \
               --enable-network \
-              --disable-gnutls --enable-openssl \
+              --disable-gnutls \
+              --enable-openssl \
               --disable-gray \
               --enable-swscale-alpha \
               --disable-small \
@@ -163,6 +169,8 @@ configure_target() {
               $FFMPEG_TABLES \
               --disable-memalign-hack \
               --disable-encoders \
+              --enable-libvorbis \
+              --enable-encoder=libvorbis \
               --enable-encoder=ac3 \
               --enable-encoder=aac \
               --enable-encoder=wmav2 \
@@ -176,6 +184,7 @@ configure_target() {
               --enable-muxer=asf \
               --enable-muxer=ipod \
               --enable-muxer=mpegts \
+              --enable-muxer=ogg \
               --enable-demuxers \
               --enable-parsers \
               --enable-bsfs \
@@ -184,7 +193,6 @@ configure_target() {
               --disable-outdevs \
               --enable-filters \
               --disable-avisynth \
-              --enable-bzlib \
               --disable-frei0r \
               --disable-libopencore-amrnb \
               --disable-libopencore-amrwb \
@@ -197,20 +205,25 @@ configure_target() {
               --disable-libopenjpeg \
               --disable-librtmp \
               --disable-libschroedinger \
-              --enable-libspeex \
+              --disable-libspeex \
               --disable-libtheora \
               --disable-libvo-amrwbenc \
               --disable-libvorbis \
               --disable-libvpx \
-              --disable-libx264 \
+              --enable-libx264 \
               --disable-libxavs \
               --disable-libxvid \
+              --enable-bzlib \
               --enable-zlib \
               --enable-asm \
+              --enable-yasm \
               --disable-altivec \
               $FFMPEG_FPU \
-              --enable-yasm \
               --disable-symver
+}
+
+pre_make_target() {
+  sed -i "s:^STRIP=.*$:STRIP=$TARGET_STRIP:" config.mak
 }
 
 post_makeinstall_target() {

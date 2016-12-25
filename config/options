@@ -2,25 +2,25 @@
   export LC_ALL=C
 
 # determines DISTRO, if not forced by user
-# default is OpenELEC
+# default is App
 if [ -z "$DISTRO" ]; then
-  DISTRO="OpenELEC"
+  DISTRO="App"
 else
   DISTRO="$DISTRO"
 fi
 
 # determines PROJECT, if not forced by user
-# default is Generic
+# default is ATMEL
 if [ -z "$PROJECT" ]; then
-  PROJECT="Generic"
+  PROJECT="ATMEL"
 else
   PROJECT="$PROJECT"
 fi
 
 # determines TARGET_ARCH, if not forced by user (x86_64 / arm)
-# default is x86_64
+# default is arm
 if [ -z "$ARCH" ]; then
-  TARGET_ARCH="x86_64"
+  TARGET_ARCH="arm"
 else
   TARGET_ARCH="$ARCH"
 fi

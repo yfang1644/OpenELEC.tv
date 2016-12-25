@@ -21,20 +21,21 @@ PKG_VERSION="libnfs-1.11.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Ronnie Sahlberg <ronniesahlberg@gmail.com>"
 PKG_SITE="https://github.com/sahlberg/libnfs"
 PKG_GIT_URL="https://github.com/sahlberg/libnfs.git"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
-PKG_SHORTDESC="libnfs: a client library for accessing NFS shares over a network."
-PKG_LONGDESC="LIBNFS is a client library for accessing NFS shares over a network."
+PKG_SHORTDESC="A client library for accessing NFS shares over a network."
+PKG_LONGDESC="libnfs is a client library for accessing NFS shares over a network."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-examples --disable-tirpc"
 
 pre_configure_target() {
-  export CFLAGS+=" -D_FILE_OFFSET_BITS=64"
+  export CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -I$ROOT/$PKG_BUILD/mount -I$ROOT/$PKG_BUILD/nfs"
 }

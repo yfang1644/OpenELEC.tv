@@ -21,15 +21,20 @@ PKG_VERSION="1.0.9"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Alan Coopersmith <alan.coopersmith@oracle.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/lib/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros kbproto libX11"
+PKG_DEPENDS_TARGET="kbproto libX11"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/lib"
-PKG_SHORTDESC="libxkbfile: X11 keyboard file manipulation library"
+PKG_SHORTDESC="X11 keyboard file manipulation library"
 PKG_LONGDESC="Libxkbfile provides an interface to read and manipulate description files for XKB, the X11 keyboard configuration extension."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared"
+PKG_CONFIGURE_OPTS_TARGET=""
+
+post_makeinstall_target() {
+  PKG_DEPENDS_TARGET="libX11"
+}

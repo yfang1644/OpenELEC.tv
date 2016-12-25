@@ -21,11 +21,12 @@ PKG_VERSION="1.25.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Erik Andersen <andersen@codepoet.org>"
 PKG_SITE="http://www.busybox.net"
 PKG_URL="http://busybox.net/downloads/$PKG_NAME-$PKG_VERSION.tar.bz2"
 PKG_DEPENDS_HOST=""
-PKG_DEPENDS_TARGET="toolchain busybox:host hdparm dosfstools e2fsprogs zip unzip pciutils usbutils parted"
-PKG_DEPENDS_INIT="toolchain"
+PKG_DEPENDS_TARGET=""
+PKG_DEPENDS_INIT=""
 PKG_PRIORITY="required"
 PKG_SECTION="system"
 PKG_SHORTDESC="BusyBox: The Swiss Army Knife of Embedded Linux"
@@ -36,17 +37,19 @@ PKG_AUTORECONF="no"
 
 PKG_MAKE_OPTS_HOST="ARCH=$TARGET_ARCH CROSS_COMPILE= KBUILD_VERBOSE=1 install"
 PKG_MAKE_OPTS_TARGET="ARCH=$TARGET_ARCH \
-                      CROSS_COMPILE=${TARGET_NAME}- \
+                      HOSTCC=$HOST_CC \
+                      CROSS_COMPILE=$TARGET_NAME- \
                       KBUILD_VERBOSE=1 \
                       install"
 PKG_MAKE_OPTS_INIT="ARCH=$TARGET_ARCH \
-                    CROSS_COMPILE=${TARGET_NAME}- \
+                    HOSTCC=$HOST_CC \
+                    CROSS_COMPILE=$TARGET_NAME- \
                     KBUILD_VERBOSE=1 \
                     install"
 
 # nfs support
 if [ "$NFS_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET rpcbind"
+   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET rpcbind"
 fi
 
 if [ -f $PROJECT_DIR/$PROJECT/busybox/busybox-target.conf ]; then
@@ -202,10 +205,10 @@ makeinstall_target() {
 }
 
 post_install() {
-  ROOT_PWD="`$ROOT/$TOOLCHAIN/bin/cryptpw -m sha512 $ROOT_PASSWORD`"
+  ROOT_PWD="`/usr/bin/cryptpw -m sha512 $ROOT_PASSWORD`"
 
-  echo "chmod 4755 $INSTALL/bin/busybox" >> $FAKEROOT_SCRIPT_SYSTEM
-  echo "chmod 000 $INSTALL/etc/shadow" >> $FAKEROOT_SCRIPT_SYSTEM
+  echo "chmod 4755 $INSTALL/bin/busybox" >> $FAKEROOT_SCRIPT
+  echo "chmod 000 $INSTALL/etc/shadow" >> $FAKEROOT_SCRIPT
 
   add_user root "$ROOT_PWD" 0 0 "Root User" "/storage" "/bin/sh"
   add_group root 0

@@ -24,14 +24,14 @@ PKG_LICENSE="GPL"
 PKG_SITE="http://lcdproc.org/"
 # PKG_URL="$SOURCEFORGE_SRC/lcdproc/lcdproc/$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.gz"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain libusb libhid libftdi1"
+PKG_DEPENDS_TARGET="libusb libhid"
 PKG_PRIORITY="optional"
 PKG_SECTION="system"
 PKG_SHORTDESC="lcdproc: Software to display system information from your Linux/*BSD box on a LCD"
 PKG_LONGDESC="LCDproc is a piece of software that displays real-time system information from your Linux/*BSD box on a LCD. The server supports several serial devices: Matrix Orbital, Crystal Fontz, Bayrad, LB216, LCDM001 (kernelconcepts.de), Wirz-SLI, Cwlinux(.com) and PIC-an-LCD; and some devices connected to the LPT port: HD44780, STV5730, T6963, SED1520 and SED1330. Various clients are available that display things like CPU load, system load, memory usage, uptime, and a lot more."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 if [ "$IRSERVER_SUPPORT" = yes ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET irserver"
@@ -40,15 +40,14 @@ fi
 IFS=$','
 for i in $LCD_DRIVER; do
   case $i in
-    glcd) PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET freetype serdisplib"
+    glcd) PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET serdisplib"
       ;;
     *)
   esac
 done
 unset IFS
 
-PKG_CONFIGURE_OPTS_TARGET="--with-ft-prefix=$SYSROOT_PREFIX/usr \
-                           --enable-libusb \
+PKG_CONFIGURE_OPTS_TARGET="--enable-libusb \
                            --enable-drivers=$LCD_DRIVER,!curses,!svga \
                            --enable-seamless-hbars"
 
@@ -57,6 +56,12 @@ pre_make_target() {
     MAKEFLAGS=-j1
 }
 
+pre_build_target() {
+  (
+    cd $PKG_BUILD
+    sh autogen.sh
+  )
+}
 post_makeinstall_target() {
   rm -rf $INSTALL/etc/lcd*.conf
   rm -rf $INSTALL/usr/bin

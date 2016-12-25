@@ -25,7 +25,7 @@ PKG_SITE="https://git.fedorahosted.org/cgit/microcode_ctl.git/"
 PKG_GIT_URL="https://github.com/OpenELEC/cpu-firmware.git"
 PKG_GIT_BRANCH="master"
 PKG_DEPENDS_INIT="toolchain"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="linux-firmware"
 PKG_SHORTDESC="cpu-microcode: Intel and AMD CPU microcodes"
@@ -47,5 +47,5 @@ make_target() {
 }
 
 makeinstall_target() {
-  DESTDIR=$INSTALL/usr ./install
+  DESTDIR=$INSTALL ./install
 }

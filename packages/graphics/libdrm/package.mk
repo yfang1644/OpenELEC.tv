@@ -21,16 +21,17 @@ PKG_VERSION="2.4.74"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Rickard E. (Rik) Faith <faith@valinux.com>"
 PKG_SITE="http://dri.freedesktop.org"
 PKG_URL="http://dri.freedesktop.org/libdrm/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libpthread-stubs libpciaccess"
+PKG_DEPENDS_TARGET="libpthread-stubs"
 PKG_PRIORITY="optional"
 PKG_SECTION="graphics"
-PKG_SHORTDESC="libdrm: Userspace interface to kernel DRM services"
+PKG_SHORTDESC="Userspace interface to kernel DRM services"
 PKG_LONGDESC="The userspace interface library to kernel DRM services."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 get_graphicdrivers
 

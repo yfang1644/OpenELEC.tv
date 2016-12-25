@@ -21,16 +21,21 @@ PKG_VERSION="2.8"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Dave Airlie <airlied@redhat.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/proto/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/proto"
-PKG_SHORTDESC="dri2proto: X.Org DRI2 protocol headers"
-PKG_LONGDESC="X.Org DRI2 protocol headers."
+PKG_SHORTDESC="X.Org DRI2 protocol headers"
+PKG_LONGDESC="X.Org DRI2 protocol headers"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 # package specific configure options
-PKG_CONFIGURE_OPTS_TARGET="--without-xmlto"
+PKG_CONFIGURE_OPTS_TARGET="--host=arm-linux"
+
+make_package_target() {
+  :
+}

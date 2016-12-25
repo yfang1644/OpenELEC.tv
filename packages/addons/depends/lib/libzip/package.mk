@@ -20,20 +20,16 @@ PKG_NAME="libzip"
 PKG_VERSION="0.11.2"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="OSS"
+PKG_MAINTAINER="Dieter Baron and Thomas Klausner, (libzip.nih.at)"
 PKG_SITE="http://www.nih.at/libzip/"
-PKG_URL="http://www.nih.at/libzip/${PKG_NAME}-${PKG_VERSION}.tar.xz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_URL="http://www.nih.at/libzip/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
-PKG_SHORTDESC="libzip"
-PKG_LONGDESC="libzip"
+PKG_SHORTDESC="C library for reading, creating, and modifying zip archives"
+PKG_LONGDESC="libzip is a C library for reading, creating, and modifying zip archives. Files can be added from data buffers, files, or compressed data copied directly from other zip archives. Changes made without closing the archive can be reverted. The API is documented by man pages."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-shared --enable-static"
-
-post_makeinstall_target() {
-  rm -rf $INSTALL/usr/bin
-  rm -rf $INSTALL/usr/lib
-}
+PKG_CONFIGURE_OPTS_TARGET=""

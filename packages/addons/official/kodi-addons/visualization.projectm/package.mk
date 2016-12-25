@@ -24,13 +24,13 @@ PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/notspiff/visualization.projectm"
 PKG_GIT_URL="https://github.com/notspiff/visualization.projectm"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain kodi-platform p8-platform libprojectM"
+PKG_DEPENDS_TARGET="libprojectM"
 PKG_PRIORITY="optional"
 PKG_SECTION=""
 PKG_SHORTDESC="visualization.projectm"
 PKG_LONGDESC="visualization.projectm"
-PKG_AUTORECONF="no"
 
+PKG_AUTORECONF="no"
 PKG_IS_ADDON="yes"
 PKG_ADDON_TYPE="xbmc.player.musicviz"
 
@@ -43,6 +43,14 @@ PKG_CMAKE_OPTS_TARGET="-DCMAKE_MODULE_PATH=$SYSROOT_PREFIX/usr/share/kodi \
 
 pre_configure_target() {
   export LDFLAGS=`echo $LDFLAGS | sed -e "s|-Wl,--as-needed||"`
+}
+
+configure_target() {
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_MODULE_PATH=$SYSROOT_PREFIX/usr/lib/kodi \
+        -DCMAKE_PREFIX_PATH=$SYSROOT_PREFIX/usr \
+        ..
 }
 
 addon() {

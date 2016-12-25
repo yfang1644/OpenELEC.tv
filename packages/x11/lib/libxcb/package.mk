@@ -21,31 +21,32 @@ PKG_VERSION="1.12"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Bart Massey, Jamey Sharp, and Josh Triplett."
 PKG_SITE="http://xcb.freedesktop.org"
 PKG_URL="http://xcb.freedesktop.org/dist/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros Python:host xcb-proto libpthread-stubs libXau"
+PKG_DEPENDS_TARGET="xcb-proto libpthread-stubs libXau"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/lib"
-PKG_SHORTDESC="libxcb: X C-language Bindings library"
+PKG_SHORTDESC="X C-language Bindings library"
 PKG_LONGDESC="X C-language Bindings library."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared \
-                           --disable-screensaver \
-                           --disable-xprint \
+PKG_CONFIGURE_OPTS_TARGET="--disable-xprint \
                            --disable-selinux \
                            --disable-xvmc"
 
 pre_configure_target() {
-  PYTHON_LIBDIR="`ls -d $SYSROOT_PREFIX/usr/lib/python*`"
-  PYTHON_TOOLCHAIN_PATH=`ls -d $PYTHON_LIBDIR/site-packages`
+    PYTHON_LIBDIR="`ls -d $SYSROOT_PREFIX/usr/lib/python*`"
+    PYTHON_TOOLCHAIN_PATH=`ls -d $PYTHON_LIBDIR/dist-packages`
 
-  PKG_MAKE_OPTS_TARGET="XCBPROTO_XCBINCLUDEDIR=$SYSROOT_PREFIX/usr/share/xcb \
-                        XCBPROTO_XCBPYTHONDIR=$PYTHON_TOOLCHAIN_PATH"
+    PKG_CONFIG="$PKG_CONFIG --define-variable=pythondir=$PYTHON_TOOLCHAIN_PATH"
+    PKG_CONFIG="$PKG_CONFIG --define-variable=xcbincludedir=$SYSROOT_PREFIX/usr/share/xcb"
 
-  PKG_MAKEINSTALL_OPTS_TARGET="$PKG_MAKE_OPTS_TARGET"
+    CFLAGS="$CFLAGS -fPIC -DPIC"
+}
 
-  CFLAGS="$CFLAGS -fPIC -DPIC"
+post_makeinstall_target() {
+  PKG_DEPENDS_TARGET="libpthread-stubs libXau"
 }

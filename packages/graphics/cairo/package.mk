@@ -21,16 +21,38 @@ PKG_VERSION="1.14.6"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL"
+PKG_MAINTAINER="Bryce Harrington <bryce@osg.samsung.com>"
 PKG_SITE="http://cairographics.org/"
 PKG_URL="http://cairographics.org/releases/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain zlib freetype fontconfig libpng pixman"
+PKG_DEPENDS_TARGET="fontconfig pixman libXext glib"
 PKG_PRIORITY="optional"
 PKG_SECTION="graphics"
-PKG_SHORTDESC="cairo: Multi-platform 2D graphics library"
+PKG_SHORTDESC="Multi-platform 2D graphics library"
 PKG_LONGDESC="Cairo is a vector graphics library with cross-device output support. Currently supported output targets include the X Window System and in-memory image buffers. PostScript and PDF file output is planned. Cairo is designed to produce identical output on all output media while taking advantage of display hardware acceleration when available."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no" # ToDo
+
+if [ "$DISPLAYSERVER" = "x11" ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libXrender libX11 mesa glu"
+  PKG_CONFIGURE_OPTS_TARGET+=" --x-includes="$SYSROOT_PREFIX/usr/include" \
+                               --x-libraries="$SYSROOT_PREFIX/usr/lib" \
+                               --enable-xlib \
+                               --enable-xlib-xrender \
+                               --enable-gl \
+                               --enable-glx \
+                               --disable-glesv2 \
+                               --disable-egl \
+                               --with-x"
+elif [ "$DISPLAYSERVER" = "weston" ]; then
+  PKG_CONFIGURE_OPTS_TARGET+=" --disable-xlib \
+                               --disable-xlib-xrender \
+                               --disable-gl \
+                               --disable-glx \
+                               --enable-glesv2 \
+                               --enable-egl \
+                               --without-x"
+fi
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
                            --enable-shared \
@@ -40,7 +62,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
                            --enable-atomic \
                            --disable-gcov \
                            --disable-valgrind \
-                           --disable-xcb \
+                           --enable-xcb \
                            --disable-xlib-xcb \
                            --disable-xcb-shm \
                            --disable-qt \
@@ -71,31 +93,9 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
                            --disable-tee \
                            --disable-xml \
                            --enable-pthread \
-                           --disable-gobject \
+                           --enable-gobject \
                            --disable-full-testing \
                            --disable-trace \
                            --enable-interpreter \
                            --disable-symbol-lookup \
-                           --enable-some-floating-point \
-                           --with-gnu-ld"
-
-if [ "$DISPLAYSERVER" = "x11" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libXrender libX11 mesa glu"
-  PKG_CONFIGURE_OPTS_TARGET+=" --x-includes="$SYSROOT_PREFIX/usr/include" \
-                               --x-libraries="$SYSROOT_PREFIX/usr/lib" \
-                               --enable-xlib \
-                               --enable-xlib-xrender \
-                               --enable-gl \
-                               --enable-glx \
-                               --disable-glesv2 \
-                               --disable-egl \
-                               --with-x"
-elif [ "$DISPLAYSERVER" = "weston" ]; then
-  PKG_CONFIGURE_OPTS_TARGET+=" --disable-xlib \
-                               --disable-xlib-xrender \
-                               --disable-gl \
-                               --disable-glx \
-                               --enable-glesv2 \
-                               --enable-egl \
-                               --without-x"
-fi
+                           --enable-some-floating-point"

@@ -23,7 +23,7 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/repo-resources"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="mediacenter"
 PKG_SHORTDESC="kodi language add-ons"
@@ -39,4 +39,6 @@ make_target() {
 makeinstall_target() {
   mkdir -p $INSTALL/usr/share/kodi/addons/
     cp -PR $ROOT/$PKG_BUILD/* $INSTALL/usr/share/kodi/addons/
+
+  PKG_VERSION="1.0"
 }

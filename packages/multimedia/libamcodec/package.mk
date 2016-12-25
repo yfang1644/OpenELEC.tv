@@ -18,7 +18,7 @@
 
 PKG_NAME="libamcodec"
 PKG_REV="1"
-PKG_ARCH="arm aarch64"
+PKG_ARCH="arm"
 PKG_LICENSE="other"
 PKG_SITE="http://openlinux.amlogic.com"
 PKG_DEPENDS_TARGET="toolchain"
@@ -47,8 +47,8 @@ make_target() {
   mkdir -p $SYSROOT_PREFIX/usr/lib
   cp -PR amavutils/*.so $SYSROOT_PREFIX/usr/lib
 
-  make -C amadec CC="$CC" PREFIX="$SYSROOT_PREFIX/usr" CROSS_PREFIX="${TARGET_NAME}-" install
-  make -C amcodec CC="$CC" HEADERS_DIR="$SYSROOT_PREFIX/usr/include/amcodec" PREFIX="$SYSROOT_PREFIX/usr" CROSS_PREFIX="${TARGET_NAME}-" install
+  make -C amadec CC="$CC" PREFIX="$SYSROOT_PREFIX/usr" CROSS_PREFIX="$TARGET_PREFIX" install
+  make -C amcodec CC="$CC" HEADERS_DIR="$SYSROOT_PREFIX/usr/include/amcodec" PREFIX="$SYSROOT_PREFIX/usr" CROSS_PREFIX="$TARGET_PREFIX" install
 }
 
 makeinstall_target() {

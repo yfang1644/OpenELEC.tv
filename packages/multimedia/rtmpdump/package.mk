@@ -21,19 +21,18 @@ PKG_VERSION="fa8646d"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINRE="Andrej Stepanchuk,  Howard Chu, The Flvstreamer Team"
 PKG_SITE="http://rtmpdump.mplayerhq.hu/"
 PKG_GIT_URL="git://git.ffmpeg.org/rtmpdump"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain zlib libressl"
+PKG_DEPENDS_TARGET="zlib libressl"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
-PKG_SHORTDESC="rtmpdump: a toolkit for RTMP streams."
+PKG_SHORTDESC="A toolkit for RTMP streams."
 PKG_LONGDESC="rtmpdump is a toolkit for RTMP streams. All forms of RTMP are supported, including rtmp://, rtmpt://, rtmpe://, rtmpte://, and rtmps://."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
-
-MAKEFLAGS="-j1"
 
 make_target() {
   make prefix=/usr \
@@ -43,7 +42,6 @@ make_target() {
        CC="$CC" \
        LD="$LD" \
        AR="$AR" \
-       SHARED=no \
        CRYPTO="OPENSSL" \
        OPT="" \
        XCFLAGS="$CFLAGS" \
@@ -60,7 +58,6 @@ makeinstall_target() {
        CC="$CC" \
        LD="$LD" \
        AR="$AR" \
-       SHARED=no \
        CRYPTO="OPENSSL" \
        OPT="" \
        XCFLAGS="$CFLAGS" \
@@ -76,7 +73,6 @@ makeinstall_target() {
        CC="$CC" \
        LD="$LD" \
        AR="$AR" \
-       SHARED=no \
        CRYPTO="OPENSSL" \
        OPT="" \
        XCFLAGS="$CFLAGS" \
@@ -88,7 +84,8 @@ makeinstall_target() {
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/sbin
 
-#  # to be removed: hack for "compatibility"
-#  mkdir -p $INSTALL/usr/lib
-#    ln -sf librtmp.so.1 $INSTALL/usr/lib/librtmp.so.0
+  # to be removed: hack for "compatibility"
+  ln -sf librtmp.so.1 $INSTALL/usr/lib/librtmp.so.0
+
+  PKG_VERSION="2.4.0"
 }

@@ -23,15 +23,11 @@ PKG_ARCH="any"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/util/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/util"
 PKG_SHORTDESC="util-macros: X.org autoconf utilities"
 PKG_LONGDESC="X.org autoconf utilities such as M4 macros."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
-
-post_makeinstall_target() {
-  rm -rf $INSTALL/usr
-}
+PKG_AUTORECONF="no"

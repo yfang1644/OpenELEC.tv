@@ -21,24 +21,33 @@ PKG_VERSION="1.19.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Adam Jackson <ajax@redhat.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/xserver/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros font-util fontsproto randrproto recordproto renderproto dri2proto dri3proto fixesproto damageproto videoproto inputproto xf86dgaproto xf86vidmodeproto xf86driproto xf86miscproto presentproto libpciaccess libX11 libXfont2 libXinerama libxshmfence libxkbfile libdrm libressl freetype pixman fontsproto systemd xorg-launch-helper"
+PKG_DEPENDS_TARGET="randrproto recordproto renderproto dri2proto dri3proto \
+		   fixesproto damageproto videoproto xf86dgaproto xf86vidmodeproto \
+		   xf86driproto xf86miscproto presentproto libXres \
+		   libpciaccess libXfont libXcomposite libXinerama libXdmcp \
+		   libxshmfence libXScrnSaver libxkbfile libressl pixman libdrm libepoxy"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/xserver"
-PKG_SHORTDESC="xorg-server: The Xorg X server"
+PKG_SHORTDESC="Xorg X server"
 PKG_LONGDESC="Xorg is a full featured X server that was originally designed for UNIX and UNIX-like operating systems running on Intel x86 hardware."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 get_graphicdrivers
 
-if [ "$OPENGL" = "mesa" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET glproto opengl libepoxy glu"
-  XORG_MESA="--enable-glx --enable-dri --enable-glamor"
+if [ ! "$OPENGL" = "no" ]; then
+PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OPENGL libepoxy"
+XORG_MESA="--enable-glx --enable-dri"
 else
-  XORG_MESA="--disable-glx --disable-dri --disable-glamor"
+  XORG_MESA="--disable-glx --disable-dri"
+fi
+
+if [ $DISPLAYSERVER = "weston" ]; then
+  XORG_WESTON="--enable-xwayland"  
 fi
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-debug \
@@ -51,20 +60,20 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-debug \
                            --disable-install-libxf86config \
                            --disable-xselinux \
                            --enable-aiglx \
-                           --enable-glx-tls \
-                           --disable-composite \
+                           --enable-composite \
                            --enable-mitshm \
-                           --disable-xres \
+                           --enable-xres \
                            --enable-record \
                            --enable-xv \
                            --disable-xvmc \
                            --enable-dga \
-                           --disable-screensaver \
-                           --disable-xdmcp \
-                           --disable-xdm-auth-1 \
+                           --enable-screensaver \
+                           --enable-xdmcp \
+                           --enable-xdm-auth-1 \
                            $XORG_MESA \
                            --enable-dri2 \
                            --enable-dri3 \
+                           --enable-pciaccess \
                            --enable-present \
                            --enable-xinerama \
                            --enable-xf86vidmode \
@@ -81,6 +90,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-debug \
                            --disable-config-wscons \
                            --enable-xfree86-utils \
                            --enable-vgahw \
+                           --enable-glamor \
                            --enable-vbe \
                            --enable-int10-module \
                            --disable-windowswm \

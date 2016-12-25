@@ -21,9 +21,10 @@ PKG_VERSION="1.0.6"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Julian Seward<jseward@bzip.org>"
 PKG_SITE="http://www.bzip.org"
 PKG_URL="http://www.bzip.org/$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="compress"
 PKG_SHORTDESC="bzip2 data compressor"
@@ -37,7 +38,7 @@ pre_make_target() {
 }
 
 make_target() {
-  make -f Makefile-libbz2_so CC=$CC CFLAGS="$CFLAGS -fPIC -DPIC"
+  make -f Makefile-libbz2_so CC=$TARGET_CC CFLAGS="$CFLAGS -fPIC -DPIC"
 }
 
 post_make_target() {

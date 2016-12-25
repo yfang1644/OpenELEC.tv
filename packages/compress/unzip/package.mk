@@ -24,7 +24,7 @@ PKG_LICENSE="OSS"
 PKG_SITE="http://www.info-zip.org/pub/infozip/"
 PKG_URL="http://ftp.uk.i-scream.org/sites/www.ibiblio.org/gentoo/distfiles/$PKG_NAME$PKG_VERSION.tar.gz"
 PKG_SOURCE_DIR="${PKG_NAME}${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="compress"
 PKG_SHORTDESC="unzip: PKUNZIP compatible compression utility"
@@ -34,8 +34,11 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 make_target() {
-    make CC=$CC RANLIB=$RANLIB AR=$AR STRIP=$STRIP \
-         -f unix/Makefile generic LOCAL_UNZIP="$CFLAGS"
+    make CC=$TARGET_CC \
+      RANLIB=$TARGET_RANLIB \
+      AR=$TARGET_AR \
+      STRIP=$TARGET_STRIP \
+      -f unix/Makefile generic LOCAL_UNZIP="$CFLAGS"
 }
 
 makeinstall_target() {

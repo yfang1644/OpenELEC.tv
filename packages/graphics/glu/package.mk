@@ -21,18 +21,25 @@ PKG_VERSION="9.0.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Eric Veach"
 PKG_SITE="http://cgit.freedesktop.org/mesa/glu/"
 PKG_URL="http://cgit.freedesktop.org/mesa/glu/snapshot/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain $OPENGL"
+PKG_DEPENDS_TARGET="mesa"
 PKG_PRIORITY="optional"
 PKG_SECTION="graphics"
 PKG_SHORTDESC="glu: The OpenGL utility library"
 PKG_LONGDESC="libglu is the The OpenGL utility library"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
             --disable-debug \
             --disable-osmesa \
-            --with-gnu-ld"
+            --with-gnu-ld \ 
+            GL_CFLAGS=-I$SYSROOT_PREFIX/usr/include/GL"
+
+pre_configure_target(){
+  sh ./autogen.sh --host=arm-linux
+}
+

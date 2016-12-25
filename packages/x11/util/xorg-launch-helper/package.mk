@@ -21,20 +21,25 @@ PKG_VERSION="12b30bf"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2"
+PKG_MAINTAINER="Auke Kok<auke-jan.h.kok@intel.com>,Arjan van de Ven<arjan@linux.intel.com>"
 PKG_SITE="https://github.com/sofar/xorg-launch-helper"
 PKG_GIT_URL="https://github.com/sofar/xorg-launch-helper.git"
 PKG_GIT_BRANCH="master"
-PKG_DEPENDS_TARGET="toolchain systemd"
+PKG_DEPENDS_TARGET="systemd"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/util"
 PKG_SHORTDESC="Xorg-launch-helper is a small utility that transforms the X server process (XOrg) into a daemon."
 PKG_LONGDESC="Xorg-launch-helper is a small utility that transforms the X server process (XOrg) into a daemon that can be used to make applications wait with starting until XOrg is ready for X11 connections"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-pre_configure_target() {
-  export LIBS="-lsystemd"
+PKG_CONFIGURE_OPTS_TARGET="LIBS=-lsystemd"
+
+pre_build_target(){
+   ( cd $PKG_BUILD
+   ./autogen.sh
+   )
 }
 
 post_makeinstall_target() {

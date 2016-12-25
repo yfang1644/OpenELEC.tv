@@ -21,9 +21,10 @@ PKG_VERSION="2.1.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="ISC"
+PKG_MAINTAINER="Lloyd Hilaiel <me@lloyd.io>"
 PKG_SITE="http://lloyd.github.com/yajl/"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="devel"
 PKG_SHORTDESC="yajl: Yet Another JSON Library (YAJL) is a small event-driven (SAX-style) JSON parser"
@@ -32,10 +33,10 @@ PKG_LONGDESC="Yet Another JSON Library (YAJL) is a small event-driven (SAX-style
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-post_makeinstall_target() {
-  mv $SYSROOT_PREFIX/usr/lib/libyajl_s.a $SYSROOT_PREFIX/usr/lib/libyajl.a
-  rm $SYSROOT_PREFIX/usr/lib/libyajl.so*
-
-  rm -rf $INSTALL/usr/bin
-  rm -rf $INSTALL/usr/lib
+configure_target() {
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+	    -DCMAKE_FIND_ROOT_PATH=$SYSROOT_PREFIX \
+            -DBUILD_SHARED_LIBS=On \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+        ..
 }

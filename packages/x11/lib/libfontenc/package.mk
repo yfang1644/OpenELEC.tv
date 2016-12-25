@@ -21,19 +21,18 @@ PKG_VERSION="1.1.3"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Alan Coopersmith <alan.coopersmith@oracle.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/lib/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros xproto zlib font-util"
+PKG_DEPENDS_TARGET="zlib"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/lib"
-PKG_SHORTDESC="libfontenc: X11 font encoding library"
+PKG_SHORTDESC="X11 font encoding library"
 PKG_LONGDESC="Libfontenc is a library which helps font libraries portably determine and deal with different encodings of fonts."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared"
+CFLAGS="$CFLAGS -fPIC -DPIC"
 
-pre_configure_target() {
-  export CFLAGS="$CFLAGS -fPIC -DPIC"
-}
+PKG_CONFIGURE_OPTS_TARGET=""

@@ -21,21 +21,20 @@ PKG_VERSION="0.2.16"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Martin F. Krafft <libhid@pobox.madduck.net>, et al"
 PKG_SITE="http://libhid.alioth.debian.org/"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libusb-compat libusb"
+PKG_DEPENDS_TARGET="libusb-compat"
 PKG_PRIORITY="optional"
 PKG_SECTION="system"
-PKG_SHORTDESC="libhid: userspace USB HID access library"
+PKG_SHORTDESC="Userspace USB HID access library"
 PKG_LONGDESC="libhid provides a generic and flexible way to access and interact with USB HID devices, much like libusb does for plain USB devices"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-shared \
-            --enable-static \
-            --disable-werror \
-            --disable-swig"
+PKG_CONFIGURE_OPTS_TARGET="--disable-werror \
+                           --disable-swig"
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr

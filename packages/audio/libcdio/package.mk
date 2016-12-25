@@ -21,22 +21,19 @@ PKG_VERSION="0.93"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
+PKG_MAINTAINER="Herbert Valerio Riedel <hvr@gnu.org>, Rocky Bernstein <rocky@gnu.org>"
 PKG_SITE="https://www.gnu.org/software/libcdio/"
 PKG_URL="https://ftp.gnu.org/gnu/libcdio/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="audio"
 PKG_SHORTDESC="libcdio: A CD-ROM reading and control library"
 PKG_LONGDESC="This library is to encapsulate CD-ROM reading and control. Applications wishing to be oblivious of the OS- and device-dependant properties of a CD-ROM can use this library. Some support for disk image types like BIN/CUE and NRG is available, so applications that use this library also have the ability to read disc images as though they were CD's."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--enable-cxx \
-                           --disable-cpp-progs \
-                           --disable-shared \
-                           --enable-static \
-                           --disable-cxx \
                            --disable-cpp-progs \
                            --disable-example-progs \
                            --enable-joliet \

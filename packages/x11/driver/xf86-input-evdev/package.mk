@@ -21,17 +21,22 @@ PKG_VERSION="2.10.4"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Peter Hutterer <peter.hutterer@who-t.net>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/driver/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros inputproto libevdev mtdev systemd"
+PKG_DEPENDS_TARGET="inputproto libevdev mtdev"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/driver"
-PKG_SHORTDESC="xf86-input-evdev: Generic Xorg Linux input driver"
+PKG_SHORTDESC="Generic Xorg Linux input driver"
 PKG_LONGDESC="Evdev is an Xorg input driver for Linux's generic event devices. It therefore supports all input devices that the kernel knows about, including most mice and keyboards."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
                            --with-xorg-module-dir=/usr/lib/xorg/modules \
                            --with-gnu-ld"
+
+post_makeinstall_target() {
+  PKG_DEPENDS_TARGET="libevdev mtdev"
+}

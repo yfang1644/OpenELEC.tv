@@ -24,7 +24,7 @@ PKG_LICENSE="Info-ZIP"
 PKG_SITE="http://www.info-zip.org/pub/infozip/"
 PKG_URL="$SOURCEFORGE_SRC/infozip/Zip%203.x%20%28latest%29/3.0/${PKG_NAME}${PKG_VERSION}.tar.gz"
 PKG_SOURCE_DIR="${PKG_NAME}${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain bzip2"
+PKG_DEPENDS_TARGET="bzip2"
 PKG_PRIORITY="optional"
 PKG_SECTION="compress"
 PKG_SHORTDESC="zip: PKUNZIP compatible compression utility"
@@ -34,7 +34,12 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 make_target() {
-  make CC=$CC CPP=$CPP RANLIB=$RANLIB AR=$AR STRIP=$STRIP LOCAL_ZIP="$CFLAGS" \
+  make CC=$TARGET_CC \
+       CPP=${TARGET_PREFIX}cpp \
+       RANLIB=$TARGET_RANLIB \
+       AR=$TARGET_AR \
+       STRIP=$TARGET_STRIP \
+       LOCAL_ZIP="$TARGET_CFLAGS" \
        -f unix/Makefile generic
 }
 

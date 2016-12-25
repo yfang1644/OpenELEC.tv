@@ -21,16 +21,21 @@ PKG_VERSION="1.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Keith Packard <keithp@keithp.com>"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/proto/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros"
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/proto"
-PKG_SHORTDESC="dri3proto: X.Org DRI3 protocol headers"
-PKG_LONGDESC="X.Org DRI3 protocol headers."
+PKG_SHORTDESC="X.Org DRI3 protocol headers"
+PKG_LONGDESC="X.Org DRI3 protocol headers"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 # package specific configure options
-PKG_CONFIGURE_OPTS_TARGET="--without-xmlto"
+PKG_CONFIGURE_OPTS_TARGET="--host=arm-linux"
+
+make_package_target() {
+  :
+}

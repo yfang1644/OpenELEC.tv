@@ -21,18 +21,22 @@ PKG_VERSION="0.1.5"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
+PKG_MAINTAINER="Daniel Drake <dsd@gentoo.org>"
 PKG_SITE="http://libusb.sourceforge.net/"
 PKG_URL="$SOURCEFORGE_SRC/libusb/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libusb"
+PKG_DEPENDS_TARGET="libusb"
 PKG_PRIORITY="optional"
 PKG_SECTION="system"
-PKG_SHORTDESC="libusb-compat: OS independent USB device access"
+PKG_SHORTDESC="OS independent USB device access"
 PKG_LONGDESC="The libusb project's aim is to create a Library for use by user level applications to USB devices regardless of OS."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-log --disable-debug-log --disable-examples-build"
+if [ $TARGET_ARCH = "aarch64" ]; then
+   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --host=arm-linux"
+fi
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/bin
