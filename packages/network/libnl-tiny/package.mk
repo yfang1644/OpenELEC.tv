@@ -38,3 +38,10 @@ LIBNLTINY_MAKE_OPTS="CC=$CC AR=$AR RANLIB=$RANLIB prefix=/usr SHAREDLIB="
 PKG_MAKE_OPTS_TARGET="$LIBNLTINY_MAKE_OPTS"
 PKG_MAKEINSTALL_OPTS_TARGET="$LIBNLTINY_MAKE_OPTS"
 
+pre_make_target() {
+  rm -rf include/linux
+}
+
+make_package_target() { #only static libraries, do not install
+  :
+}

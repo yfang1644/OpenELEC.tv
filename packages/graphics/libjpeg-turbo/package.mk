@@ -38,7 +38,6 @@ export CFLAGS="$CFLAGS -fPIC -DPIC"
 PKG_CONFIGURE_OPTS_HOST="--with-jpeg8 \
                          --enable-static \
                          --disable-shared \
-                         --with-jpeg8 \
                          --without-simd"
 
 PKG_CONFIGURE_OPTS_TARGET="--with-jpeg8"

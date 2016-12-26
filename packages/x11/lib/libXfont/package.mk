@@ -43,3 +43,6 @@ PKG_CONFIGURE_OPTS_TARGET="--enable-ipv6 \
                            --with-gnu-ld \
                            --without-xmlto"
 
+post_makeinstall_target() {
+  PKG_DEPENDS_TARGET="freetype libfontenc xtrans"
+}

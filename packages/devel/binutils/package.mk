@@ -23,7 +23,8 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.gnu.org/software/binutils/binutils.html"
 PKG_URL="http://ftp.gnu.org/gnu/binutils/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_HOST="ccache:host bison:host flex:host linux:host"
+PKG_DEPENDS_HOST=""
+PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="toolchain/devel"
 PKG_SHORTDESC="A GNU collection of binary utilities"
@@ -45,8 +46,7 @@ PKG_CONFIGURE_OPTS_HOST="--target=$TARGET_NAME \
                          --enable-plugins \
                          --enable-gold \
                          --enable-ld=default \
-                         --enable-lto \
-                         --disable-nls"
+                         --enable-lto"
 
 makeinstall_host() {
   cp -v ../include/libiberty.h $SYSROOT_PREFIX/usr/include

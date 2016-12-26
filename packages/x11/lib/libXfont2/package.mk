@@ -23,7 +23,7 @@ PKG_ARCH="any"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/lib/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain util-macros fontcacheproto fontsproto xtrans xproto zlib freetype libfontenc"
+PKG_DEPENDS_TARGET="fontcacheproto fontsproto xtrans xproto zlib freetype libfontenc"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/lib"
 PKG_SHORTDESC="libxfont: X font Library"
@@ -32,9 +32,7 @@ PKG_LONGDESC="X font Library"
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared \
-                           --disable-ipv6 \
-                           --without-bzip2 \
+PKG_CONFIGURE_OPTS_TARGET="--without-bzip2 \
                            --enable-freetype \
                            --enable-builtins \
                            --disable-pcfformat \

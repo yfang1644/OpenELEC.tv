@@ -24,7 +24,8 @@ PKG_LICENSE="OSS"
 PKG_MAINTAINER="Brian Paul (brian@precisioninsight.com)"
 PKG_SITE="http://www.mesa3d.org/"
 PKG_URL="ftp://freedesktop.org/pub/mesa/$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain Python:host expat glproto dri2proto presentproto libdrm libXext libXdamage libXfixes libXxf86vm libxcb libX11 dri3proto libxshmfence libressl zlib"
+PKG_DEPENDS_TARGET="expat glproto dri2proto dri3proto presentproto libdrm \
+				   libXdamage libXxf86vm libxshmfence libressl wayland"
 PKG_PRIORITY="optional"
 PKG_SECTION="graphics"
 PKG_SHORTDESC="3-D graphics library with OpenGL API"
@@ -76,7 +77,8 @@ PKG_CONFIGURE_OPTS_TARGET="CC_FOR_BUILD=$HOST_CC \
                            --enable-glx \
                            --disable-osmesa \
                            --disable-gallium-osmesa \
-                           --enable-egl --with-egl-platforms=x11,drm \
+                           --enable-egl \
+                           --with-egl-platforms=x11,drm \
                            --disable-xa \
                            --enable-gbm \
                            --disable-nine \

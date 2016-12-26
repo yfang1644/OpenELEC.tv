@@ -26,9 +26,9 @@ PKG_SITE="http://www.X.org"
 PKG_URL="http://xorg.freedesktop.org/archive/individual/xserver/$PKG_NAME-$PKG_VERSION.tar.bz2"
 PKG_DEPENDS_TARGET="randrproto recordproto renderproto dri2proto dri3proto \
 		   fixesproto damageproto videoproto xf86dgaproto xf86vidmodeproto \
-		   xf86driproto xf86miscproto presentproto libXres \
+		   xf86driproto xf86miscproto presentproto libXres systemd \
 		   libpciaccess libXfont libXcomposite libXinerama libXdmcp \
-		   libxshmfence libXScrnSaver libxkbfile libressl pixman libdrm libepoxy"
+		   libxshmfence libXScrnSaver libxkbfile libressl pixman libdrm"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/xserver"
 PKG_SHORTDESC="Xorg X server"
