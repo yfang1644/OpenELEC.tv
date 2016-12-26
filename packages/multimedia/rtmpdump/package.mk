@@ -50,6 +50,7 @@ make_target() {
 }
 
 makeinstall_target() {
+  mkdir -p $INSTALL/usr/lib/pkgconfig/
   make DESTDIR=$SYSROOT_PREFIX \
        prefix=/usr \
        incdir=/usr/include/librtmp \

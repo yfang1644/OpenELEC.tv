@@ -16,46 +16,36 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="wpa_supplicant"
+PKG_NAME="hostapd"
 PKG_VERSION="2.6"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-Maintainer="Jouni Malinen <j@w1.fi>"
-PKG_SITE="http://hostap.epitest.fi/wpa_supplicant/"
-PKG_URL="http://hostap.epitest.fi/releases/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="dbus libnl-tiny libressl"
+PKG_MAINTAINER="Jouni Malinen <j@w1.fi>"
+PKG_SITE="http://w1.fi/hostap"
+PKG_URL="http://w1.fi/releases/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="libnl-tiny libressl"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
-PKG_SHORTDESC="An IEEE 802.11i supplicant implementation"
-PKG_LONGDESC="The wpa_supplicant is a free software implementation of an IEEE 802.11i supplicant. In addition to being a full-featured WPA2 supplicant, it also has support for WPA and older wireless LAN security protocols."
+PKG_SHORTDESC="User space daemon for access points, IEEE 802.1X/WPA/EAP Authenticator"
+PKG_LONGDESC="hostapd is a user space daemon for access point and authentication servers. It implements IEEE 802.11 access point management, IEEE 802.1X/WPA/WPA2/EAP Authenticators, RADIUS client, EAP server, and RADIUS authentication server. The current version supports Linux (Host AP, madwifi, mac80211-based drivers) and FreeBSD (net80211)."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_MAKE_OPTS_TARGET="-C wpa_supplicant V=1 LIBDIR=/usr/lib BINDIR=/usr/bin"
-PKG_MAKEINSTALL_OPTS_TARGET="-C wpa_supplicant V=1 LIBDIR=/usr/lib BINDIR=/usr/bin"
+PKG_MAKE_OPTS_TARGET="-C hostapd V=1 LIBDIR=/usr/lib BINDIR=/usr/bin"
+PKG_MAKEINSTALL_OPTS_TARGET="-C hostapd V=1 LIBDIR=/usr/lib BINDIR=/usr/bin"
 
 configure_target() {
   LDFLAGS="$LDFLAGS -lpthread -lm"
   CFLAGS="$CFLAGS -D_GNU_SOURCE -DCONFIG_LIBNL20 -I$SYSROOT_PREFIX/usr/include/libnl-tiny"
-	cp $PKG_DIR/config/makefile.config wpa_supplicant/.config
 
+  cp $PKG_DIR/config/makefile.config hostapd/.config
+#  sed -i 's/-I\/usr\/include\/libnl3//' src/drivers/drivers.mk
 # echo "CONFIG_TLS=gnutls" >> .config
 # echo "CONFIG_GNUTLS_EXTRA=y" >> .config
 }
 
 post_makeinstall_target() {
-  rm -r $INSTALL/usr/bin/wpa_cli
-
-  mkdir -p $INSTALL/etc/dbus-1/system.d
-    cp wpa_supplicant/dbus/dbus-wpa_supplicant.conf $INSTALL/etc/dbus-1/system.d
-
-  mkdir -p $INSTALL/usr/lib/systemd/system
-    cp wpa_supplicant/systemd/wpa_supplicant.service $INSTALL/usr/lib/systemd/system
-
-  mkdir -p $INSTALL/usr/share/dbus-1/system-services
-    cp wpa_supplicant/dbus/fi.w1.wpa_supplicant1.service $INSTALL/usr/share/dbus-1/system-services
-    cp wpa_supplicant/dbus/fi.epitest.hostap.WPASupplicant.service $INSTALL/usr/share/dbus-1/system-services
-  PKG_DEPENDS_TARGET="dbus libressl"
+  PKG_DEPENDS_TARGET="libressl"
 }

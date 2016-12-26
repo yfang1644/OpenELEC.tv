@@ -21,20 +21,20 @@ PKG_VERSION="2.12.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
+PKG_MAINTAINER="Akira TAGOH <akira@tagoh.org>"
 PKG_SITE="http://www.fontconfig.org"
 PKG_URL="http://www.freedesktop.org/software/fontconfig/release/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain util-macros freetype libxml2 zlib expat"
+PKG_DEPENDS_TARGET="freetype expat"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/other"
-PKG_SHORTDESC="fontconfig: A library for font customization and configuration"
+PKG_SHORTDESC="Library for font customization and configuration"
 PKG_LONGDESC="Fontconfig is a library for font customization and configuration."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-shared --enable-static \
-                           --with-arch=$TARGET_ARCH \
-                           --with-cache-dir=/storage/.cache/fontconfig \
+PKG_CONFIGURE_OPTS_TARGET="--with-arch=$TARGET_ARCH \
+                           --with-cache-dir=/var/cache/fontconfig \
                            --with-default-fonts=/usr/share/fonts \
                            --without-add-fonts \
                            --disable-dependency-tracking \
